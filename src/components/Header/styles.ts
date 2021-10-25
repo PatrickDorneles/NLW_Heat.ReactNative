@@ -10,7 +10,7 @@ export const HeaderContainer = styled.View`
   padding: 0 20px;
 `
 
-export const LogoutButton = styled.View`
+export const UserArea = styled.View`
   flex-direction: row;
   align-items: center;
 `

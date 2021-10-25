@@ -1,12 +1,33 @@
-import React, { useState } from 'react'
+import { Alert, Keyboard } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import { SendMessageFormContainer, SendMessageTextInput } from './styles'
 
 import { Button } from '../Button'
 import { COLORS } from '../../theme'
+import { MessageModel } from '../../model/message'
+import { api } from '../../services/api'
 
 export function SendMessageForm() {
   const [message, setMessage] = useState('')
   const [sendingMessage, setSendingMessage] = useState(false)
+
+  async function handleMessageSubmit() {
+    const formattedMessage = message.trim()
+
+    if(formattedMessage.length) {
+      setSendingMessage(true)
+      await api.post('message', { text: formattedMessage })
+      
+      setMessage('')
+      Keyboard.dismiss()
+      setSendingMessage(false)
+
+      Alert.alert('Mensagem enviada com sucesso')
+    } else {
+      Alert.alert('Escreva a mensagem antes de enviar')
+    }
+  }
+  
   return (
     <SendMessageFormContainer>
       <SendMessageTextInput
@@ -25,6 +46,7 @@ export function SendMessageForm() {
         backgroundColor={COLORS.PINK}
         color={COLORS.WHITE}
         isLoading={sendingMessage}
+        onPress={handleMessageSubmit}
       />
     </SendMessageFormContainer>
   )

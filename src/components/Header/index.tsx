@@ -1,4 +1,4 @@
-import { HeaderContainer, LogoutButton, LogoutText } from './styles'
+import { HeaderContainer, LogoutText, UserArea } from './styles'
 import { Text, TouchableOpacity } from 'react-native'
 
 import LogoSvg from '../../assets/logo.svg'
@@ -13,18 +13,18 @@ export function Header() {
     <HeaderContainer>
       <LogoSvg />
 
-      {
-        user && 
-        <LogoutButton>
-          <TouchableOpacity onPress={signOut}>
-            <LogoutText>Sair</LogoutText>
-          </TouchableOpacity>
-  
+        <UserArea>
+          {
+            user && 
+            <TouchableOpacity onPress={signOut}>
+              <LogoutText>Sair</LogoutText>
+            </TouchableOpacity>
+            
+          }
           <UserPhoto
-            imageUri={user.avatar_url}
+            imageUri={user?.avatar_url}
           />
-        </LogoutButton> 
-      }
+        </UserArea> 
 
     </HeaderContainer>
   )
