@@ -11,8 +11,6 @@ const messageQueue: MessageModel[] = []
 
 const socket = io(String(process.env.API_URL))
 socket.on('new_message', (newMessage: MessageModel) => {
-  console.log(newMessage);
-  
   messageQueue.push(newMessage)
 })
 
